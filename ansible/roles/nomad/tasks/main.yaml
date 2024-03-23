@@ -1,0 +1,27 @@
+---
+
+- name: install hashi-up
+  shell: |
+    curl -sLS https://get.hashi-up.dev | sh
+    sudo cp hashi-up /usr/local/bin/hashi-up
+    hashi-up version
+
+- name: prepare host
+  shell: | 
+    mkdir -p /home/vagrant/nomad/certs
+
+- name: show playbook_dir
+  debug:
+    msg: "{{ playbook_dir }}/../secrets/nomad/{{ nomad_region }}/{{ nomad_datacenter }}"
+
+- name: transfert nomad certificats
+  copy:
+    src: "{{ item }}"
+    dest: /home/vagrant/nomad/certs
+  with_fileglob: "{{ playbook_dir }}/../secrets/nomad/{{ nomad_region }}/{{ nomad_datacenter }}/certs/*.pem"
+
+- name: generate nomad config
+  template:
+    src: templates/nomad-cluster-config.j2
+    dest: /home/vagrant/nomad/config.hcl
+    

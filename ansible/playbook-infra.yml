@@ -1,0 +1,12 @@
+---
+
+- name: Provisionning control planes
+  hosts: control_planes
+  become: true
+
+  vars_files:
+  - "{{ playbook_dir }}/../secrets/nomad/{{ nomad_region }}/{{ nomad_datacenter }}/gossip.yaml"
+  
+  roles:
+    # - docker
+    - nomad
