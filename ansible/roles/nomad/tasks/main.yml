@@ -1,0 +1,13 @@
+---
+
+- name: Play tasks from "hashi-up"
+  ansible.builtin.include_tasks:
+    file: hashi-up.yml
+
+- name: Play tasks from "prepare"
+  ansible.builtin.include_tasks:
+    file: prepare.yml
+
+- name: Play tasks from "run"
+  ansible.builtin.include_tasks:
+    file: run.yml

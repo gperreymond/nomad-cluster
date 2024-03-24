@@ -40,21 +40,19 @@ echo ""
 # EXECUTE COMMAND
 # -----------------------
 
-gossip_encription_key=$(nomad operator gossip keyring generate)
+inventory_file="ansible/inventories/$datacenter/inventory.ini"
+first_retry_join=$(awk -F '[][]' '/nomad_server_retry_join/{print $2}' $inventory_file | awk -F ', ' '{print $1}' | sed 's/"//g')
+echo "[INFO] get first retry join is $first_retry_join"
 
-# -----------------------
-# CREATE ANSIBLE SECRET
-# -----------------------
+# nomad acl bootstrap -address=https://$first_retry_join:4646 -region=$region -tls-skip-verify -json > bootstap.json
+# cat bootstap.json | jq
 
-dirpath_gossip="secrets/nomad/${region}/${datacenter}"
-
-echo "[INFO] encryp file: gossip.yaml"
-ansible-vault encrypt_string "$gossip_encription_key" --name "nomad_gossip_encription_key" > $dirpath_gossip/gossip.yaml
-echo "" >> $dirpath_gossip/gossip.yaml
+# ansible-vault encrypt "bootstap.json"
+echo "[INFO] move bootstap.json"
+mv bootstap.json secrets/nomad/${region}/${datacenter}/bootstap.json
 
 # -----------------------
 # END
 # -----------------------
 
 echo ""
-

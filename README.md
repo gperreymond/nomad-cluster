@@ -43,4 +43,6 @@ $ .wtf/nomad-generate-certificats.sh -region global -datacenter infra
 $ .wtf/nomad-gossip-encryption-key.sh -region global -datacenter infra
 # run playbooks
 $ ansible-playbook -i ansible/inventories/infra/inventory.ini ansible/playbook-infra.yml
+# boostrap nomad acl after the first "ansible-playbook"
+$ .wtf/nomad-acl-bootstrap.sh -region global -datacenter infra
 ```

@@ -1,0 +1,7 @@
+---
+
+- name: Install hashi-up
+  ansible.builtin.get_url:
+    url: https://github.com/jsiebens/hashi-up/releases/download/v{{ hashiup_version }}/hashi-up
+    dest: /usr/local/bin
+    mode: '0755'

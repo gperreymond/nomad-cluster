@@ -1,11 +1,5 @@
 ---
 
-- name: Install hashi-up
-  ansible.builtin.shell: |
-    curl -sLS https://get.hashi-up.dev | sh
-    sudo cp hashi-up /usr/local/bin/hashi-up
-    hashi-up version
-
 - name: Install cni plugins
   ansible.builtin.unarchive:
     src: https://github.com/containernetworking/plugins/releases/download/v{{ cni_plugins_version }}/cni-plugins-linux-amd64-v{{ cni_plugins_version }}.tgz
@@ -23,13 +17,3 @@
   ansible.builtin.template:
     src: templates/nomad-cluster-config.j2
     dest: /home/vagrant/nomad/config.hcl
-
-- name: Install and run nomad as a service
-  ansible.builtin.shell: |
-    hashi-up nomad install --local --version {{ nomad_version }} --config-file /home/vagrant/nomad/config.hcl
-
-- name: Check if nomad service has started
-  ansible.builtin.service:
-    name: nomad
-    state: started
-    enabled: true

@@ -8,5 +8,6 @@
     - "{{ playbook_dir }}/../secrets/nomad/{{ nomad_region }}/{{ nomad_datacenter }}/gossip.yaml"
 
   roles:
+    - packages
     - docker
     - nomad

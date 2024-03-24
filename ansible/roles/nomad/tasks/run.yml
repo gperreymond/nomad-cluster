@@ -1,0 +1,11 @@
+---
+
+- name: Install and run nomad as a service
+  ansible.builtin.shell: |
+    hashi-up nomad install --local --version {{ nomad_version }} --config-file /home/vagrant/nomad/config.hcl
+
+- name: Check if nomad service has started
+  ansible.builtin.service:
+    name: nomad
+    state: started
+    enabled: true
