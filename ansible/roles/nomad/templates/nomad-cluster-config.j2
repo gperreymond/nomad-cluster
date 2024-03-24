@@ -1,5 +1,6 @@
-region             = "{{nomad_region}}"
-datacenter         = "{{nomad_datacenter}}"
+region             = "{{ nomad_region }}"
+datacenter         = "{{ nomad_datacenter }}"
+data_dir           = "/opt/nomad/data"
 log_level          = "INFO"
 log_json           = true
 leave_on_interrupt = false
@@ -16,17 +17,21 @@ autopilot {
 }
 server {
   enabled          = true
-  bootstrap_expect = {{nomad_bootstrap_expect}}
-  encrypt          = "{{nomad_gossip_encription_key}}"
+  bootstrap_expect = {{ nomad_bootstrap_expect }}
+  encrypt          = "{{ nomad_gossip_encription_key }}"
   server_join {
-    retry_join = ["{{nomad_server_retry_join}}"]
+    retry_join = [
+      {% for server in nomad_server_retry_join %}
+      "{{ server }}",
+      {% endfor %}
+    ]
   }
 }
 client {
   enabled = true
   meta {
-    NodeRegion            = "{{nomad_region}}"
-    NodeDatacenter        = "{{nomad_datacenter}}"
+    NodeRegion            = "{{ nomad_region }}"
+    NodeDatacenter        = "{{ nomad_datacenter }}"
     NodeType              = "control-plane"
   }
 }

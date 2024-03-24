@@ -7,8 +7,11 @@
 ```sh
 # install dependencies with asdf
 $ .wtf/install-dependencies.sh
+$ pip install --upgrade pip
 $ pip install cryptography
 $ pip install ansible
+$ pip install ansible-dev-tools
+$ pip install ansible-lint
 ```
 
 ## Run Vagrant

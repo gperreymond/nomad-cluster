@@ -1,27 +1,35 @@
 ---
 
-- name: install hashi-up
-  shell: |
+- name: Install hashi-up
+  ansible.builtin.shell: |
     curl -sLS https://get.hashi-up.dev | sh
     sudo cp hashi-up /usr/local/bin/hashi-up
     hashi-up version
 
-- name: prepare host
-  shell: | 
-    mkdir -p /home/vagrant/nomad/certs
+- name: Install cni plugins
+  ansible.builtin.unarchive:
+    src: https://github.com/containernetworking/plugins/releases/download/v{{ cni_plugins_version }}/cni-plugins-linux-amd64-v{{ cni_plugins_version }}.tgz
+    dest: /opt/cni/bin
+    remote_src: true
 
-- name: show playbook_dir
-  debug:
-    msg: "{{ playbook_dir }}/../secrets/nomad/{{ nomad_region }}/{{ nomad_datacenter }}"
-
-- name: transfert nomad certificats
-  copy:
+- name: Transfert nomad certificats
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: /home/vagrant/nomad/certs
+    dest: /home/vagrant/nomad/certs/
+    mode: '0644'
   with_fileglob: "{{ playbook_dir }}/../secrets/nomad/{{ nomad_region }}/{{ nomad_datacenter }}/certs/*.pem"
 
-- name: generate nomad config
-  template:
+- name: Generate nomad config
+  ansible.builtin.template:
     src: templates/nomad-cluster-config.j2
     dest: /home/vagrant/nomad/config.hcl
-    
+
+- name: Install and run nomad as a service
+  ansible.builtin.shell: |
+    hashi-up nomad install --local --version {{ nomad_version }} --config-file /home/vagrant/nomad/config.hcl
+
+- name: Check if nomad service has started
+  ansible.builtin.service:
+    name: nomad
+    state: started
+    enabled: true
