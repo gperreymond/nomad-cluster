@@ -32,6 +32,15 @@ $ ssh vagrant@127.0.0.1 -p 2203
 $ vagrant ssh-config
 ```
 
+## Install and use Tailscale
+
+* https://login.tailscale.com/admin/machines
+
+```sh
+$ curl -fsSL https://tailscale.com/install.sh | sh
+$ tailscale ip
+```
+
 ## Run Ansible
 
 * https://www.digitalocean.com/community/tutorials/how-to-use-vault-to-protect-sensitive-ansible-data

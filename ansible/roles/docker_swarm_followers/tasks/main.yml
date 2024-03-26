@@ -3,6 +3,6 @@
 - name: Initialization docker swarm
   community.docker.docker_swarm:
     state: join
-    advertise_addr: "{{ ansible_facts.eth1.ipv4.address }}"
+    advertise_addr: "{{ ansible_facts.tailscale0.ipv4.address }}"
     join_token: "{{ hostvars['nomad-cluster-1']['docker_swarm_manager_join_token'] }}"
     remote_addrs: "{{ hostvars['nomad-cluster-1']['docker_swarm_manager_leader_ip'] }}:2377"

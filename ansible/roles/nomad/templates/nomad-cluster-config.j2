@@ -29,6 +29,7 @@ server {
 }
 client {
   enabled = true
+  network_interface = "tailscale0"
   meta {
     NodeRegion            = "{{ nomad_region }}"
     NodeDatacenter        = "{{ nomad_datacenter }}"
@@ -59,8 +60,8 @@ tls {
   verify_https_client    = false
 }
 advertise {
-  http = "{{ ansible_facts.eth1.ipv4.address }}"
-  rpc = "{{ ansible_facts.eth1.ipv4.address }}"
-  serf = "{{ ansible_facts.eth1.ipv4.address }}"
+  http = "{{ ansible_facts.tailscale0.ipv4.address }}"
+  rpc = "{{ ansible_facts.tailscale0.ipv4.address }}"
+  serf = "{{ ansible_facts.tailscale0.ipv4.address }}"
 }
 bind_addr = "0.0.0.0"

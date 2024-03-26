@@ -3,7 +3,7 @@
 - name: Initialization docker swarm
   community.docker.docker_swarm:
     state: present
-    advertise_addr: "{{ ansible_facts.eth1.ipv4.address }}"
+    advertise_addr: "{{ ansible_facts.tailscale0.ipv4.address }}"
   register: result_docker_swarm_manager_leader
 
 - name: Create a docker overlay network
