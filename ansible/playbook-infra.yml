@@ -10,14 +10,14 @@
 #     - docker
 #     - nomad
 
-- name: Initializing swarm manager on leader
-  hosts: manager_leader
-  become: true
-  roles:
-    - docker_swarm_leader
+# - name: Initializing swarm manager on leader
+#   hosts: manager_leader
+#   become: true
+#   roles:
+#     - docker_swarm_leader
 
-- name: Initializing swarm manager on followers
-  hosts: manager_followers
-  become: true
-  roles:
-    - docker_swarm_followers
+# - name: Initializing swarm manager on followers
+#   hosts: manager_followers
+#   become: true
+#   roles:
+#     - docker_swarm_followers
