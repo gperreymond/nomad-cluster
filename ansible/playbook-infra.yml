@@ -1,13 +1,23 @@
 ---
 
-- name: Provisionning control planes
-  hosts: control_planes
+# - name: Provisionning control planes
+#   hosts: all
+#   become: true
+#   vars_files:
+#     - "{{ playbook_dir }}/../secrets/nomad/{{ nomad_region }}/{{ nomad_datacenter }}/gossip.yaml"
+#   roles:
+#     - packages
+#     - docker
+#     - nomad
+
+- name: Initializing swarm manager on leader
+  hosts: manager_leader
   become: true
-
-  vars_files:
-    - "{{ playbook_dir }}/../secrets/nomad/{{ nomad_region }}/{{ nomad_datacenter }}/gossip.yaml"
-
   roles:
-    - packages
-    - docker
-    - nomad
+    - docker_swarm_leader
+
+- name: Initializing swarm manager on followers
+  hosts: manager_followers
+  become: true
+  roles:
+    - docker_swarm_followers

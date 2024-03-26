@@ -12,6 +12,7 @@ $ pip install cryptography
 $ pip install ansible
 $ pip install ansible-dev-tools
 $ pip install ansible-lint
+$ ansible-galaxy collection install community.docker
 ```
 
 ## Run Vagrant

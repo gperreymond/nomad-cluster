@@ -1,9 +1,14 @@
 ---
 
+- name: Add python3 repository to apt
+  ansible.builtin.apt_repository:
+    repo: 'ppa:deadsnakes/ppa'
+    state: present
+
 - name: Install apt dependencies
   ansible.builtin.apt:
     name: "{{ item }}"
-    state: present
+    state: latest
     update_cache: true
   loop:
     - apt-transport-https
@@ -11,3 +16,9 @@
     - curl
     - gnupg-agent
     - software-properties-common
+    - python3
+    - python3-pip
+
+- name: Install Docker module for Python
+  ansible.builtin.pip:
+    name: docker
