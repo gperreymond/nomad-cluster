@@ -44,10 +44,9 @@ inventory_file="ansible/inventories/$datacenter/inventory.ini"
 first_retry_join=$(awk -F '[][]' '/nomad_server_retry_join/{print $2}' $inventory_file | awk -F ', ' '{print $1}' | sed 's/"//g')
 echo "[INFO] get first retry join is $first_retry_join"
 
-# nomad acl bootstrap -address=https://$first_retry_join:4646 -region=$region -tls-skip-verify -json > bootstap.json
-# cat bootstap.json | jq
+nomad acl bootstrap -address=https://$first_retry_join:4646 -region=$region -tls-skip-verify -json > bootstap.json
+ansible-vault encrypt "bootstap.json"
 
-# ansible-vault encrypt "bootstap.json"
 echo "[INFO] move bootstap.json"
 mv bootstap.json secrets/nomad/${region}/${datacenter}/bootstap.json
 
