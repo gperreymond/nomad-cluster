@@ -56,3 +56,15 @@ $ ansible-playbook -i ansible/inventories/infra/inventory.ini ansible/playbook-i
 # boostrap nomad acl after the first "ansible-playbook"
 $ .wtf/nomad-acl-bootstrap.sh -region global -datacenter infra
 ```
+
+## Usefull commands
+
+```sh
+$ nomad system gc -tls-skip-verify
+$ nomad system reconcile summaries -tls-skip-verify
+$ dig SRV whoami-http.default.service.nomad @[nomad_cluster_ip_from_tailscale]
+```
+
+## Documentations
+
+* https://github.com/ituoga/coredns-nomad

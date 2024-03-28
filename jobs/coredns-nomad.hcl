@@ -7,6 +7,11 @@ job "coredns-nomad" {
         static = 53
       }
     }
+    service {
+      name         = "hostmaster"
+      provider     = "nomad"
+      port         = "dns"
+    }
     task "coredns" {
       driver = "docker"
       config {
@@ -17,11 +22,6 @@ job "coredns-nomad" {
         ]
         ports = ["dns"]
         args = ["-conf", "/etc/Corefile", "-dns.port", "53"]
-      }
-      service {
-        name         = "hostmaster"
-        provider     = "nomad"
-        port         = "dns"
       }
       env {
         NOMAD_SKIP_VERIFY = "true"
