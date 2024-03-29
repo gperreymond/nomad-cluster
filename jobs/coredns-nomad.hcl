@@ -46,6 +46,14 @@ EOF
         change_mode   = "signal"
         change_signal = "SIGHUP"
       }
+      identity {
+        env  = true
+        file = true
+      }
+      resources {
+        cpu    = 100
+        memory = 64
+      }
     }
   }
 }

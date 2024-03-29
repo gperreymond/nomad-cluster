@@ -38,7 +38,7 @@ $ vagrant ssh-config
 
 ```sh
 $ curl -fsSL https://tailscale.com/install.sh | sh
-$ tailscale ip
+$ tailscale up
 ```
 
 ## Run Ansible

@@ -1,6 +1,6 @@
 job "whoami" {
   group "whoami" {
-    count = 6
+    count = 3
     network {
       port "http" {
         to       = 80
@@ -23,8 +23,8 @@ job "whoami" {
         file = true
       }
       resources {
-        cpu    = 500
-        memory = 256
+        cpu    = 100
+        memory = 64
       }
     }
   }
