@@ -65,6 +65,17 @@ $ nomad system reconcile summaries -tls-skip-verify
 $ dig SRV whoami-http.default.service.nomad @[nomad_cluster_ip_from_tailscale]
 ```
 
+## Run Kubernetes with k0s
+
+```sh
+$ eval $(ssh-agent)
+$ k0sctl apply --config k0sctl.yaml
+$ k0sctl kubeconfig --config k0sctl.yaml > kubeconfig
+$ kubectl --kubeconfig kubeconfig get pods
+```
+
 ## Documentations
 
+* https://docs.k0sproject.io/stable/k0sctl-install/
+* https://docs.k0sproject.io/v1.23.6+k0s.2/configuration/#specnetwork
 * https://github.com/ituoga/coredns-nomad

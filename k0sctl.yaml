@@ -1,0 +1,50 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: k0s-cluster
+spec:
+  hosts:
+  - role: controller+worker
+    privateInterface: tailscale0
+    ssh:
+      address: '192.168.59.201'
+      user: vagrant
+      port: 22
+      keyPath: .vagrant/machines/nomad-cluster-1/virtualbox/private_key
+  - role: controller+worker
+    privateInterface: tailscale0
+    ssh:
+      address: '192.168.59.202'
+      user: vagrant
+      port: 22
+      keyPath: .vagrant/machines/nomad-cluster-2/virtualbox/private_key
+  - role: controller+worker
+    privateInterface: tailscale0
+    ssh:
+      address: '192.168.59.203'
+      user: vagrant
+      port: 22
+      keyPath: .vagrant/machines/nomad-cluster-3/virtualbox/private_key
+  k0s:
+    version: 'v1.29.2+k0s.0'
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: ClusterConfig
+      metadata:
+        name: k8s-cluster
+      spec:
+        network:
+          provider: calico
+          calico:
+            mode: vxlan
+        images:
+          calico:
+            cni:
+              image: calico/cni
+              version: v3.27.2
+            node:
+              image: docker.io/calico/node
+              version: v3.27.2
+            kubecontrollers:
+              image: docker.io/calico/kube-controllers
+              version: v3.27.2
