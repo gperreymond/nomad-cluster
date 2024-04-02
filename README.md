@@ -72,6 +72,7 @@ $ eval $(ssh-agent)
 $ k0sctl apply --config k0sctl.yaml
 $ k0sctl kubeconfig --config k0sctl.yaml > kubeconfig
 $ kubectl --kubeconfig kubeconfig get pods
+$ k0sctl reset --config k0sctl.yaml
 ```
 
 ## Documentations

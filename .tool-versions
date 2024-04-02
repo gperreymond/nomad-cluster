@@ -3,3 +3,4 @@ python 3.10.12
 jq 1.7
 k0sctl 0.17.5
 kubectl 1.29.0
+terragrunt 0.55.18

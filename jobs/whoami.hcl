@@ -3,7 +3,7 @@ job "whoami" {
     count = 3
     network {
       port "http" {
-        to       = 80
+        to = 80
       }
     }
     service {

@@ -8,20 +8,20 @@ job "coredns-nomad" {
       }
     }
     service {
-      name         = "hostmaster"
-      provider     = "nomad"
-      port         = "dns"
+      name     = "hostmaster"
+      provider = "nomad"
+      port     = "dns"
     }
     task "coredns" {
       driver = "docker"
       config {
-        image = "ghcr.io/ituoga/coredns-nomad:v0.0.8"
-        privileged     = true
+        image      = "ghcr.io/ituoga/coredns-nomad:v0.0.8"
+        privileged = true
         volumes = [
           "secrets/coredns/Corefile:/etc/Corefile:ro",
         ]
         ports = ["dns"]
-        args = ["-conf", "/etc/Corefile", "-dns.port", "53"]
+        args  = ["-conf", "/etc/Corefile", "-dns.port", "53"]
       }
       env {
         NOMAD_SKIP_VERIFY = "true"
